@@ -19,8 +19,39 @@ namespace ConsoleApp1
             segment2.AddRange(newRow.GetRange(3, 3));
             List<int> segment3 = new List<int> { };
             segment3.AddRange(newRow.GetRange(6, 3));
-            CreateGrille(segment1, segment2, segment3);
+            List<List<int>> grille = CreateGrille(segment1, segment2, segment3);
+            List<int> grilleToLine = GrilleToLine(grille);
+            GrilleClear(grilleToLine);
         }
+
+        static List<int> GrilleClear(List<int> row)
+        {
+            
+        }
+
+        static List<int> GrilleToLine(List<List<int>> grille)
+        {
+            List<int> grilleToLine = new List<int>();
+            //foreach(var item in grilleToLine)
+            //{
+            //    grilleToLine += grilleToLine.Concat(item).ToList();
+            //}
+            for (int i = 0; i < grille.Count; i++)
+            {
+                if (i == 0)
+                {
+                    grilleToLine = grilleToLine.Concat(grille[i]).ToList();
+                }
+                else
+                {
+                    grilleToLine = grilleToLine.Concat(grille[i]).ToList();
+                }
+            }
+            Console.WriteLine(string.Join(", ", grilleToLine));
+
+            return grilleToLine;
+        }
+
         static List<int> ListRandom(List<int> row)
         {
             Random rnd = new Random();
@@ -34,7 +65,7 @@ namespace ConsoleApp1
             }
             return newRow;
         }
-        static void CreateGrille(List<int> segment1, List<int> segment2, List<int> segment3)
+        static List<List<int>> CreateGrille(List<int> segment1, List<int> segment2, List<int> segment3)
         {
             List<List<int>> grille = new List<List<int>>();
             for (int i = 0; i < 9; i++)
@@ -48,8 +79,21 @@ namespace ConsoleApp1
                 segment1 = segment2;
                 segment2 = segment3;
                 segment3 = temp;
+                if (i % 3 > 1)
+                {
+                    int firstNum = segment1.First();
+                    segment1.RemoveAt(0);
+                    segment1.Add(firstNum);
+                    firstNum = segment2.First();
+                    segment2.RemoveAt(0);
+                    segment2.Add(firstNum);
+                    firstNum = segment3.First();
+                    segment3.RemoveAt(0);
+                    segment3.Add(firstNum);
+                }
                 Console.WriteLine(string.Join(", ", grille[i]));
             }
+            return grille;
         }
     }
 }
