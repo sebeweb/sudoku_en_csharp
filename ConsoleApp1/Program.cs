@@ -21,9 +21,20 @@ namespace ConsoleApp1
             segment3.AddRange(newRow.GetRange(6, 3));
             List<List<int>> grille = CreateGrille(segment1, segment2, segment3);
             List<int> grilleToLine = GrilleToLine(grille);
-            List<int> grilleClear GrilleClear(grilleToLine);
+            List<int> grilleClear = GrilleClear(grilleToLine);
+            lineToGrille(grilleClear);
         }
-
+        static List<List<int>> lineToGrille(List<int> line)
+        {
+           List<List<int>> grille = new List<List<int>>();
+           Console.WriteLine("\nSudoku\n");
+           for(int i = 0; i < 9; i++){
+                grille.Add(line.GetRange(0, 9));
+                line.RemoveRange(0,9);
+               Console.WriteLine(string.Join(", ", grille[i]));
+           }
+           return grille;
+        }
         static List<int> GrilleClear(List<int> line)
         {
             Random rnd = new Random();           
@@ -37,7 +48,6 @@ namespace ConsoleApp1
                     i++;
                 }
             }
-            Console.WriteLine(string.Join(", ", line));
             return line;
         }
 
@@ -55,7 +65,6 @@ namespace ConsoleApp1
                     grilleToLine = grilleToLine.Concat(grille[i]).ToList();
                 }
             }
-            Console.WriteLine(string.Join(", ", grilleToLine));
 
             return grilleToLine;
         }
@@ -76,6 +85,7 @@ namespace ConsoleApp1
         static List<List<int>> CreateGrille(List<int> segment1, List<int> segment2, List<int> segment3)
         {
             List<List<int>> grille = new List<List<int>>();
+            Console.WriteLine("Solution\n");
             for (int i = 0; i < 9; i++)
             {
                 List<int> concatSeg = new List<int>();
