@@ -21,21 +21,29 @@ namespace ConsoleApp1
             segment3.AddRange(newRow.GetRange(6, 3));
             List<List<int>> grille = CreateGrille(segment1, segment2, segment3);
             List<int> grilleToLine = GrilleToLine(grille);
-            GrilleClear(grilleToLine);
+            List<int> grilleClear GrilleClear(grilleToLine);
         }
 
-        static List<int> GrilleClear(List<int> row)
+        static List<int> GrilleClear(List<int> line)
         {
-            
+            Random rnd = new Random();           
+            for (int i = 0; i < 47;)
+            {
+                int index = rnd.Next(0, line.Count);
+                if(line[index] == 0){
+                 index = rnd.Next(0, line.Count);                    
+                }else{
+                    line[index] = 0;
+                    i++;
+                }
+            }
+            Console.WriteLine(string.Join(", ", line));
+            return line;
         }
 
         static List<int> GrilleToLine(List<List<int>> grille)
         {
             List<int> grilleToLine = new List<int>();
-            //foreach(var item in grilleToLine)
-            //{
-            //    grilleToLine += grilleToLine.Concat(item).ToList();
-            //}
             for (int i = 0; i < grille.Count; i++)
             {
                 if (i == 0)
